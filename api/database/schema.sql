@@ -114,7 +114,7 @@ VALUES
 );
 
 INSERT INTO usuarios (id,nome,email,password,is_admin,is_tecnico,is_cliente,is_ativo,perfil)
-VALUES ('bf9db5a6-b1e4-477c-93b7-8bb13d2be815', 'Administrador', 'administrador@sathi.com.br', '$2b$10$uiBUMbVMV6c5QURI9vgBPu49DZBxvm6kIph8QX8Tr5VtWBE0t/8sq', true, false, false, true, 'administrador');
+VALUES ('bf9db5a6-b1e4-477c-93b7-8bb13d2be815', 'Administrador', 'administrador@sathi.com.br', '$argon2id$v=19$m=65536,t=3,p=4$HytbGVRDUxE9aLGaVzEpEg$aMH30XwenX84WzNcbyDG7pr1/p8P+328Qftv7ZUUlYM', true, false, false, true, 'administrador');
 
 -- Status das Ordens de Servico
 CREATE TABLE IF NOT EXISTS status_ordem_servico

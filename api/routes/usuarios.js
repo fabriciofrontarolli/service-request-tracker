@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const passport = require('passport');
 const { v4 } = require('uuid');
-const bcrypt = require('bcrypt');
+const argon2 = require('argon2');
 const { Usuario, Usuarios_Clientes } = require('../entities');
 const { novoUsuarioSchema, atualizaUsuarioSchema } = require('./schemas/usuarios-schema');
 const { PERFIL_CLIENTE, PERFIL_TECNICO, PERFIL_ADMINISTRADOR } = require('../authentication/constants');
@@ -114,7 +114,7 @@ router.post('/',
       return res.status(400).send(error.details[0].message);
     }
 
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const hashedPassword = await argon2.hash(req.body.password);
     const createUserPayload = {
       id: v4(),
       nome: body.nome,
@@ -169,7 +169,7 @@ router.put('/:id',
     }
 
     if (usuarioPayload.password) {
-      const hashedPassword = await bcrypt.hash(usuarioPayload.password, 10);
+      const hashedPassword = await argon2.hash(usuarioPayload.password);
       usuarioPayload.password = hashedPassword;
     }
 

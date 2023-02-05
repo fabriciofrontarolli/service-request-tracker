@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const passport = require('passport');
-const bcrypt = require('bcrypt');
+const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 const { Usuario } = require('../entities');
 const dotenv = require('dotenv/config.js');
@@ -18,7 +18,7 @@ router.post('/login', async (req, res) => {
     return res.status(401).json({ message: 'Nenhum usuario encontrado' });
   }
 
-  const match = await bcrypt.compare(req.body.password, usuario.password);
+  const match = await argon2.verify(usuario.password, req.body.password);
   if (!match) {
     return res.status(401).json({ message: 'Senha invalida' });
   }
