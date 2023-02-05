@@ -20,6 +20,10 @@ app.use(rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 }));
 
+app.get('/', (req, res) => {
+	return res.json({ message: 'API up and running!' });
+});
+
 configureRoutes(app);
 
 const PORT = process.env.API_PORT;
