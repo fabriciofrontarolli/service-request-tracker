@@ -20,6 +20,8 @@ app.use(rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 }));
 
+app.use(express.static('public'))
+
 app.get('/ping', (req, res) => {
 	return res.json({ message: 'API up and running!' });
 });
