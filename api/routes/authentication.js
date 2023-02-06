@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
   const userObject = {
     id: usuario.id,
     nome: usuario.nome,
-    emal: usuario.email,
+    email: usuario.email,
     perfil: usuario.perfil
   };
   try {
