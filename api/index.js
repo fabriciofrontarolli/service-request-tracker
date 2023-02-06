@@ -20,7 +20,7 @@ app.use(rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 }));
 
-app.get('/', (req, res) => {
+app.get('/ping', (req, res) => {
 	return res.json({ message: 'API up and running!' });
 });
 
