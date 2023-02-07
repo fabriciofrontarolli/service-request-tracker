@@ -1,36 +1,22 @@
 import React from 'react'
 import { AUTH_PREFIX_PATH, APP_PREFIX_PATH } from 'configs/AppConfig'
 
+import LoginPage from 'views/auth-views/authentication/login';
+import OrdensDeServicoPage from 'views/app-views/dashboards/ordens-de-servico';
+import AbrirChamadoPage from 'views/app-views/dashboards/abrir-chamado';
+import ClientesPage from 'views/app-views/dashboards/clientes';
+import NovoClientePage from 'views/app-views/dashboards/novo-cliente';
+import QuadroLaboratorio from 'views/app-views/dashboards/quadro-laboratorio';
+import QuadroCampo from 'views/app-views/dashboards/quadro-campo';
+import UsuariosPage from 'views/app-views/dashboards/usuarios';
+import NovoUsaurioPage from 'views/app-views/dashboards/novo-usuario';
+import PerfilPage from 'views/app-views/dashboards/perfil';
+
 export const publicRoutes = [
     {
         key: 'login',
         path: `${AUTH_PREFIX_PATH}/login`,
-        component: React.lazy(() => import('views/auth-views/authentication/login')),
-    },
-    {
-        key: 'register-1',
-        path: `${AUTH_PREFIX_PATH}/register-1`,
-        component: React.lazy(() => import('views/auth-views/authentication/register-1')),
-    },
-    {
-        key: 'register-2',
-        path: `${AUTH_PREFIX_PATH}/register-2`,
-        component: React.lazy(() => import('views/auth-views/authentication/register-2')),
-    },
-    {
-        key: 'forgot-password',
-        path: `${AUTH_PREFIX_PATH}/forgot-password`,
-        component: React.lazy(() => import('views/auth-views/authentication/forgot-password')),
-    },
-    {
-        key: 'error-page-1',
-        path: `${AUTH_PREFIX_PATH}/error-page-1`,
-        component: React.lazy(() => import('views/auth-views/errors/error-page-1')),
-    },
-    {
-        key: 'error-page-2',
-        path: `${AUTH_PREFIX_PATH}/error-page-2`,
-        component: React.lazy(() => import('views/auth-views/errors/error-page-2')),
+        component: LoginPage,
     },
 ]
 
@@ -38,111 +24,66 @@ export const protectedRoutes = [
     {
         key: 'dashboard.default',
         path: `${APP_PREFIX_PATH}/dashboards/default`,
-        component: React.lazy(() => import('views/app-views/dashboards/ordens-de-servico')),
+        component: OrdensDeServicoPage,
     },
     {
         key: 'dashboard.ordensDeServico',
         path: `${APP_PREFIX_PATH}/dashboards/ordens-de-servico`,
-        component: React.lazy(() => import('views/app-views/dashboards/ordens-de-servico')),
+        component: OrdensDeServicoPage,
     },
     {
         key: 'dashboard.analytic',
         path: `${APP_PREFIX_PATH}/dashboards/abrir-chamado`,
-        component: React.lazy(() => import('views/app-views/dashboards/abrir-chamado')),
+        component: AbrirChamadoPage,
     },
     {
         key: 'dashboard.editarOrdemDeServico',
         path: `${APP_PREFIX_PATH}/dashboards/editar-ordem-de-servico/:id`,
-        component: React.lazy(() => import('views/app-views/dashboards/abrir-chamado')),
+        component: AbrirChamadoPage,
     },
     {
         key: 'dashboard.customers',
         path: `${APP_PREFIX_PATH}/dashboards/clientes`,
-        component: React.lazy(() => import('views/app-views/dashboards/clientes')),
+        component: ClientesPage,
     },
     {
         key: 'dashboard.customer',
         path: `${APP_PREFIX_PATH}/dashboards/novo-cliente`,
-        component: React.lazy(() => import('views/app-views/dashboards/novo-cliente')),
+        component: NovoClientePage,
     },
     {
         key: 'dashboard.editarCliente',
         path: `${APP_PREFIX_PATH}/dashboards/editar-cliente/:id`,
-        component: React.lazy(() => import('views/app-views/dashboards/novo-cliente')),
-    },
-    {
-        key: 'components.general',
-        path: `${APP_PREFIX_PATH}/components/general`,
-        component: React.lazy(() => import('views/app-views/components/general')),
+        component: NovoClientePage
     },
     {
         key: 'quadros.laboratorio',
         path: `${APP_PREFIX_PATH}/quadros/laboratorio`,
-        component: React.lazy(() => import('views/app-views/dashboards/quadro-laboratorio')),
+        component: QuadroLaboratorio,
     },
     {
         key: 'quadros.campo',
         path: `${APP_PREFIX_PATH}/quadros/campo`,
-        component: React.lazy(() => import('views/app-views/dashboards/quadro-campo')),
+        component: QuadroCampo,
     },
     {
         key: 'usuarios.listagem',
         path: `${APP_PREFIX_PATH}/administrativo/usuarios`,
-        component: React.lazy(() => import('views/app-views/dashboards/usuarios')),
+        component: UsuariosPage,
     },
     {
         key: 'usuarios.novoUsuario',
         path: `${APP_PREFIX_PATH}/administrativo/novo-usuario`,
-        component: React.lazy(() => import('views/app-views/dashboards/novo-usuario')),
+        component: NovoUsaurioPage,
     },
     {
         key: 'dashboard.editarUsuario',
         path: `${APP_PREFIX_PATH}/administrativo/editar-usuario/:id`,
-        component: React.lazy(() => import('views/app-views/dashboards/novo-usuario')),
+        component: NovoUsaurioPage
     },
     {
         key: 'dashboard.perfil',
         path: `${APP_PREFIX_PATH}/perfil`,
-        component: React.lazy(() => import('views/app-views/dashboards/perfil')),
-    },
-
-
-
-    {
-        key: 'register-1',
-        path: `${APP_PREFIX_PATH}/register-1`,
-        component: React.lazy(() => import('views/auth-views/authentication/register-1')),
-        meta: {
-            blankLayout: true
-        }
-    },
-    {
-        key: 'register-2',
-        path: `${APP_PREFIX_PATH}/register-2`,
-        component: React.lazy(() => import('views/auth-views/authentication/register-2')),
-        meta: {
-            blankLayout: true
-        }
-    },
-    {
-        key: 'forgot-password',
-        path: `${APP_PREFIX_PATH}/forgot-password`,
-        component: React.lazy(() => import('views/auth-views/authentication/forgot-password')),
-        meta: {
-            blankLayout: true
-        }
-    },
-    {
-        key: 'error-page-1',
-        path: `${APP_PREFIX_PATH}/error-page-1`,
-        component: React.lazy(() => import('views/auth-views/errors/error-page-1')),
-    },
-    {
-        key: 'error-page-2',
-        path: `${APP_PREFIX_PATH}/error-page-2`,
-        component: React.lazy(() => import('views/auth-views/errors/error-page-2')),
-        meta: {
-            blankLayout: true
-        }
-    },
+        component: PerfilPage,
+    }
 ];
