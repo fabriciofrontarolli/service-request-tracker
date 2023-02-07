@@ -59,15 +59,14 @@ npm install
 
 # Create .env file
 
-cp /apps/sathi/informatica/api/.env.sample /apps/sathi/informatica/api/.env
+cp /root/apps/sathi-informatica/api/.env.sample /root/apps/sathi-informatica/api/.env
 
-Add DB_PASSWORD and JWT_SECRET values to file
+Add DB_PORT, DB_PASSWORD and JWT_SECRET values to file
 
 # Run the API project
 
 npm start
 pm2 startup ubuntu
-
 
 # Install and configure ngix as reverse proxy
 
@@ -85,7 +84,8 @@ server {
   root /var/www/html;
 }
 
-location /api {
+location /api/ {
+  rewrite ^/api/(.*) /$1 break;
   proxy_pass http://localhost:6000; #whatever port your app runs on
   proxy_http_version 1.1;
   proxy_set_header Upgrade $http_upgrade;
