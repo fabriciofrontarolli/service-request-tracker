@@ -74,33 +74,12 @@ sudo apt install nginx
 
 vim /etc/nginx/sites-available/default
 
-Add configuration
-
-
-# server_name yourdomain.com www.yourdomain.com;
-server {
-  listen 80;
-  server_name {DROPLET_IP} {DROPLET_IP}.com;
-  root /var/www/html;
-}
-
-location /api/ {
-  rewrite ^/api/(.*) /$1 break;
-  proxy_pass http://localhost:6000; #whatever port your app runs on
-  proxy_http_version 1.1;
-  proxy_set_header Upgrade $http_upgrade;
-  proxy_set_header Connection 'upgrade';
-  proxy_set_header Host $host;
-  proxy_cache_bypass $http_upgrade;
-}
+Add configuration from file 'nginx-content.txt'
 
 sudo nginx -t
 sudo service nginx restart
 
-API is now running on port 80
-
 https://{DROPLET_IP}/api
-
 
 # ** Configure UI **
 
