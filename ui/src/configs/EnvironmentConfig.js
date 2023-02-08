@@ -3,7 +3,7 @@ const dev = {
 };
 
 const prod = {
-  API_ENDPOINT_URL: 'https://137.184.193.51/api/'
+  API_ENDPOINT_URL: 'https://codebuilders.com.br/api/'
 };
 
 const test = {
