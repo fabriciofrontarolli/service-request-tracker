@@ -45,7 +45,7 @@ export const LoginForm = props => {
 
 	useEffect(() => {
 		if (token !== null && allowRedirect) {
-			navigate(redirect)
+			window.location = window.location.origin;
 		}
 		if (showMessage) {
 			const timer = setTimeout(() => hideAuthMessage(), 3000)

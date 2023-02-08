@@ -12,7 +12,8 @@ export const initialState = {
 
 export const signIn = createAsyncThunk('auth/signIn',async (data, { rejectWithValue }) => {
 	try {
-		const response = await AuthenticationService.login(data)
+		const response = await AuthenticationService.login(data);
+
 		if (!!response.auth) {
 			localStorage.setItem(AUTH_TOKEN, response.token);
 			localStorage.setItem(AUTH_USER, JSON.stringify(response.usuario));
@@ -28,6 +29,7 @@ export const signIn = createAsyncThunk('auth/signIn',async (data, { rejectWithVa
 export const signOut = createAsyncThunk('auth/signOut',async () => {
 	localStorage.removeItem(AUTH_TOKEN);
 	localStorage.removeItem(AUTH_USER);
+	window.location = window.location.origin;
 })
 
 export const authSlice = createSlice({
