@@ -29,7 +29,7 @@ export const signIn = createAsyncThunk('auth/signIn',async (data, { rejectWithVa
 export const signOut = createAsyncThunk('auth/signOut',async () => {
 	localStorage.removeItem(AUTH_TOKEN);
 	localStorage.removeItem(AUTH_USER);
-	window.location = window.location.origin;
+	// window.location = window.location.origin;
 })
 
 export const authSlice = createSlice({

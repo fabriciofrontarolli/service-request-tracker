@@ -116,10 +116,9 @@ place build content under folder /var/www/html
 # Add SSL Certificate
 
 sudo add-apt-repository ppa:certbot/certbot
-sudo apt-get update
-sudo apt-get install python-certbot-nginx
-# sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
-sudo certbot --nginx -d {DROPLET_IP}.com -d www.{DROPLET_IP}.com
+sudo apt update
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d codebuilders.com -d www.codebuilders.com
 
 # Only valid for 90 days, test the renewal process with
 certbot renew --dry-run
