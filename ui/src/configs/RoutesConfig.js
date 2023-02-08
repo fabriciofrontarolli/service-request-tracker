@@ -24,66 +24,66 @@ export const protectedRoutes = [
     {
         key: 'dashboard.default',
         path: `${APP_PREFIX_PATH}/dashboards/default`,
-        component: OrdensDeServicoPage,
+        component: React.lazy(() => import('views/app-views/dashboards/ordens-de-servico'))
     },
     {
         key: 'dashboard.ordensDeServico',
         path: `${APP_PREFIX_PATH}/dashboards/ordens-de-servico`,
-        component: OrdensDeServicoPage,
+        component: React.lazy(() => import('views/app-views/dashboards/ordens-de-servico'))
     },
     {
         key: 'dashboard.analytic',
         path: `${APP_PREFIX_PATH}/dashboards/abrir-chamado`,
-        component: AbrirChamadoPage,
+        component: React.lazy(() => import('views/app-views/dashboards/abrir-chamado'))
     },
     {
         key: 'dashboard.editarOrdemDeServico',
         path: `${APP_PREFIX_PATH}/dashboards/editar-ordem-de-servico/:id`,
-        component: AbrirChamadoPage,
+        component: React.lazy(() => import('views/app-views/dashboards/abrir-chamado'))
     },
     {
         key: 'dashboard.customers',
         path: `${APP_PREFIX_PATH}/dashboards/clientes`,
-        component: ClientesPage,
+        component: React.lazy(() => import('views/app-views/dashboards/clientes'))
     },
     {
         key: 'dashboard.customer',
         path: `${APP_PREFIX_PATH}/dashboards/novo-cliente`,
-        component: NovoClientePage,
+        component: React.lazy(() => import('views/app-views/dashboards/novo-cliente'))
     },
     {
         key: 'dashboard.editarCliente',
         path: `${APP_PREFIX_PATH}/dashboards/editar-cliente/:id`,
-        component: NovoClientePage
+        component: React.lazy(() => import('views/app-views/dashboards/novo-cliente'))
     },
     {
         key: 'quadros.laboratorio',
         path: `${APP_PREFIX_PATH}/quadros/laboratorio`,
-        component: QuadroLaboratorio,
+        component: React.lazy(() => import('views/app-views/dashboards/quadro-laboratorio'))
     },
     {
         key: 'quadros.campo',
         path: `${APP_PREFIX_PATH}/quadros/campo`,
-        component: QuadroCampo,
+        component: React.lazy(() => import('views/app-views/dashboards/quadro-campo'))
     },
     {
         key: 'usuarios.listagem',
         path: `${APP_PREFIX_PATH}/administrativo/usuarios`,
-        component: UsuariosPage,
+        component: React.lazy(() => import('views/app-views/dashboards/usuarios'))
     },
     {
         key: 'usuarios.novoUsuario',
         path: `${APP_PREFIX_PATH}/administrativo/novo-usuario`,
-        component: NovoUsaurioPage,
+        component: React.lazy(() => import('views/app-views/dashboards/novo-usuario'))
     },
     {
         key: 'dashboard.editarUsuario',
         path: `${APP_PREFIX_PATH}/administrativo/editar-usuario/:id`,
-        component: NovoUsaurioPage
+        component: React.lazy(() => import('views/app-views/dashboards/novo-usuario'))
     },
     {
         key: 'dashboard.perfil',
         path: `${APP_PREFIX_PATH}/perfil`,
-        component: PerfilPage,
+        component: React.lazy(() => import('views/app-views/dashboards/perfil'))
     }
 ];
