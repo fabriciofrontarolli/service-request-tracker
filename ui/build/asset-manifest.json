@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "https://codebuilders.com.br/static/css/main.300e41ed.css",
-    "main.js": "https://codebuilders.com.br/static/js/main.facd4800.js",
+    "main.js": "https://codebuilders.com.br/static/js/main.3486082b.js",
     "static/js/131.65d97d83.chunk.js": "https://codebuilders.com.br/static/js/131.65d97d83.chunk.js",
     "static/js/468.c5ec7300.chunk.js": "https://codebuilders.com.br/static/js/468.c5ec7300.chunk.js",
     "static/js/233.d160d9b8.chunk.js": "https://codebuilders.com.br/static/js/233.d160d9b8.chunk.js",
     "index.html": "https://codebuilders.com.br/index.html",
     "main.300e41ed.css.map": "https://codebuilders.com.br/static/css/main.300e41ed.css.map",
-    "main.facd4800.js.map": "https://codebuilders.com.br/static/js/main.facd4800.js.map",
+    "main.3486082b.js.map": "https://codebuilders.com.br/static/js/main.3486082b.js.map",
     "131.65d97d83.chunk.js.map": "https://codebuilders.com.br/static/js/131.65d97d83.chunk.js.map",
     "468.c5ec7300.chunk.js.map": "https://codebuilders.com.br/static/js/468.c5ec7300.chunk.js.map",
     "233.d160d9b8.chunk.js.map": "https://codebuilders.com.br/static/js/233.d160d9b8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.300e41ed.css",
-    "static/js/main.facd4800.js"
+    "static/js/main.3486082b.js"
   ]
 }

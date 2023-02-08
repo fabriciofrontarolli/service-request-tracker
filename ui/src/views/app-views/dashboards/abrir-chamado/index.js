@@ -317,6 +317,7 @@ const CriarNovoChamado = () => {
               penColor='#000'
               backgroundColor='#fff'
               ref={signatureRef}
+              clearOnResize={false}
               onEnd={handleEndSignature}
               canvasProps={{
                 className: styles.signaturePad
