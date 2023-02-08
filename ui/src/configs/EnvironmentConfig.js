@@ -1,9 +1,9 @@
 const dev = {
-  API_ENDPOINT_URL: 'http://localhost:6000/'
+  API_ENDPOINT_URL: 'http://localhost:8090/'
 };
 
 const prod = {
-  API_ENDPOINT_URL: 'http://localhost:6000/api/'
+  API_ENDPOINT_URL: 'http://137.184.193.51/api/'
 };
 
 const test = {
