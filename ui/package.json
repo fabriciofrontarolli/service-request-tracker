@@ -67,7 +67,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "PUBLIC_URL=./ react-scripts build",
-    "deploy-build": "cd /var/www/html && rm -rf * && && cp -R /root/apps/sathi-informatica/ui/build/* ./",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently \"npm run start\" \"gulp watch\""
