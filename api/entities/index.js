@@ -11,23 +11,28 @@ const isProduction = environment == "production";
 
 console.log('environment >>>>>>>>>>> ', environment)
 
-let sequelize = new Sequelize(dbName, dbUser, dbPassword, {
-  host: dbHost,
-  port: dbPort,
-  dialect: 'postgres',
-  logging: true
-});
+let sequelize;
 
-if (isProduction) {
-  sequelize = {
-    ...sequelize,
+if (!isProduction) {
+  sequelize = new Sequelize(dbName, dbUser, dbPassword, {
+    host: dbHost,
+    port: dbPort,
+    dialect: 'postgres',
+    logging: true
+  });
+} else {
+  sequelize = new Sequelize(dbName, dbUser, dbPassword, {
+    host: dbHost,
+    port: dbPort,
+    dialect: 'postgres',
+    logging: true,
     dialectOptions: {
       ssl: {
         require: true,
         rejectUnauthorized: false
       }
     }
-  }
+  });
 }
 
 /* Models */
