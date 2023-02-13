@@ -3,8 +3,19 @@ import { normalizePayload } from './utils';
 
 const OrdensDeServicoService = {}
 
-OrdensDeServicoService.fetch = function (page, limit) {
-	return fetch.get(`/ordens-de-servico?page=${page}&limit=${limit}`);
+OrdensDeServicoService.fetch = function (page, limit, filtro) {
+	let apiQuery = `?page=${page}&limit=${limit}`;
+
+	if (filtro) {
+		const updatedApiQuery = Object.entries(filtro)
+																	.reduce((query, [key,value]) => {
+																		const normalizedValue = encodeURIComponent(value.replace(/ /g, "%20"));
+																		return `${query}&${key}=${normalizedValue}`;
+																	}, apiQuery);
+		apiQuery = updatedApiQuery;
+	}
+
+	return fetch.get(`/ordens-de-servico${apiQuery}`);
 }
 
 OrdensDeServicoService.get = function (id) {

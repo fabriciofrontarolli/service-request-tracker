@@ -2,8 +2,9 @@ const { Router } = require('express');
 const passport = require('passport');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
-const { Usuario } = require('../entities');
+const { Usuario, Usuarios_Clientes } = require('../entities');
 const dotenv = require('dotenv/config.js');
+const { PERFIL_CLIENTE } = require('../authentication/constants');
 const router = Router();
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -23,13 +24,23 @@ router.post('/login', async (req, res) => {
     return res.status(401).json({ message: 'Senha invalida' });
   }
 
+  const isCliente = usuario.perfil === PERFIL_CLIENTE.id;
+  let usuarioCliente = undefined;
+  if (isCliente) {
+    usuarioCliente = await Usuarios_Clientes.findOne({ where: { id_usuario: usuario.id } });
+  }
+
   let token;
   const userObject = {
     id: usuario.id,
     nome: usuario.nome,
     email: usuario.email,
-    perfil: usuario.perfil
+    perfil: usuario.perfil,
+    cliente: isCliente ? usuarioCliente && usuarioCliente.id_cliente : undefined
   };
+
+  
+
   try {
     token = jwt.sign(userObject, JWT_SECRET.toString('utf-8'), { expiresIn: '1d' });
   }
@@ -39,19 +50,5 @@ router.post('/login', async (req, res) => {
 
   return res.status(200).json({ auth: true, token, usuario: userObject });
 });
-
-/*
-router.post('/register', (req, res) => {
-  User.create({
-    email: req.body.email,
-    password: req.body.password
-  })
-    .then(user => {
-      const token = jwt.sign({ id: user.id }, 'your_secret_key', { expiresIn: 86400 });
-      res.status(200).json({ auth: true, token });
-    })
-    .catch(err => res.status(500).json({ message: 'Error', error: err }));
-});
-*/
 
 module.exports = router;

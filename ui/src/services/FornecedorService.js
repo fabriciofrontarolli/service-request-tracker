@@ -1,9 +1,9 @@
 import fetch from 'auth/FetchInterceptor'
 import { normalizePayload } from './utils';
 
-const ClienteService = {}
+const FornecedorService = {}
 
-ClienteService.fetch = function (page, limit, filtro) {
+FornecedorService.fetch = function (page, limit, filtro) {
 	let apiQuery = `?page=${page}&limit=${limit}`;
 
 	if (filtro) {
@@ -15,30 +15,30 @@ ClienteService.fetch = function (page, limit, filtro) {
 		apiQuery = updatedApiQuery;
 	}
 
-	return fetch.get(`/clientes${apiQuery}`);
+	return fetch.get(`/fornecedores${apiQuery}`);
 }
 
-ClienteService.get = function (id) {
+FornecedorService.get = function (id) {
 	if (!id) { return undefined; }
-	return fetch.get(`/clientes/${id}`);
+	return fetch.get(`/fornecedores/${id}`);
 }
 
-ClienteService.criar = function (data) {
+FornecedorService.criar = function (data) {
 	normalizePayload(data);
 	return fetch({
-		url: '/clientes',
+		url: '/fornecedores',
 		method: 'post',
 		data: data
 	});
 }
 
-ClienteService.salvar = function (id, data) {
+FornecedorService.salvar = function (id, data) {
 	normalizePayload(data);
 	return fetch({
-		url: `/clientes/${id}`,
+		url: `/fornecedores/${id}`,
 		method: 'put',
 		data: data
 	})
 }
 
-export default ClienteService;
+export default FornecedorService;

@@ -7,7 +7,8 @@ import {
   FileAddOutlined,
   FileSearchOutlined,
   UserSwitchOutlined,
-  UsergroupAddOutlined
+  UsergroupAddOutlined,
+  ShopOutlined
 } from '@ant-design/icons';
 import { APP_PREFIX_PATH, AUTH_PREFIX_PATH } from 'configs/AppConfig'
 import { PERFIL_ADMINISTRADOR, PERFIL_CLIENTE, PERFIL_TECNICO } from 'views/app-views/dashboards/dados';
@@ -91,10 +92,10 @@ const navQuadros = [{
   ]
 }]
 
-const navUsuarios = [{
-  key: 'usuarios',
+const navAdministrativo = [{
+  key: 'administrativo',
   path: `${APP_PREFIX_PATH}/usuarios`,
-  title: 'sidenav.usuarios',
+  title: 'sidenav.administrativo',
   icon: DashboardOutlined,
   breadcrumb: false,
   isGroupTitle: true,
@@ -103,17 +104,35 @@ const navUsuarios = [{
     {
       key: 'usuarios',
       path: `${APP_PREFIX_PATH}/administrativo/usuarios`,
-      title: 'sidenav.usuarios.listagem',
+      title: 'sidenav.administrativo.usuarios.listagem',
       icon: UserSwitchOutlined,
       breadcrumb: false,
       profiles: [PERFIL_ADMINISTRADOR.id],
       submenu: []
     },
     {
-      key: 'novo',
+      key: 'novo-usuario',
       path: `${APP_PREFIX_PATH}/administrativo/novo-usuario`,
-      title: 'sidenav.usuarios.novo',
+      title: 'sidenav.administrativo.usuarios.novo',
       icon: UsergroupAddOutlined,
+      breadcrumb: false,
+      profiles: [PERFIL_ADMINISTRADOR.id],
+      submenu: []
+    },
+    {
+      key: 'fornecedores',
+      path: `${APP_PREFIX_PATH}/administrativo/fornecedores`,
+      title: 'sidenav.administrativo.fornecedores.listagem',
+      icon: ShopOutlined,
+      breadcrumb: false,
+      profiles: [PERFIL_ADMINISTRADOR.id],
+      submenu: []
+    },
+    {
+      key: 'novo-fornecedor',
+      path: `${APP_PREFIX_PATH}/administrativo/novo-fornecedor`,
+      title: 'sidenav.administrativo.fornecedores.novo',
+      icon: ShopOutlined,
       breadcrumb: false,
       profiles: [PERFIL_ADMINISTRADOR.id],
       submenu: []
@@ -124,7 +143,7 @@ const navUsuarios = [{
 const navigationConfig = [
   ...navOperacional,
   ...navQuadros,
-  ...navUsuarios,
+  ...navAdministrativo,
 ]
 
 export default navigationConfig;

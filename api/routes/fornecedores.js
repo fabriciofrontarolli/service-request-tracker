@@ -3,8 +3,8 @@ const passport = require('passport');
 const { Sequelize } = require('sequelize');
 const { v4 } = require('uuid');
 const { PERFIL_CLIENTE } = require('../authentication/constants');
-const { Cliente } = require('../entities');
-const { novoClienteSchema, atualizaClienteSchema } = require('./schemas/clientes-schema');
+const { Fornecedor } = require('../entities');
+const { novoFornecedorSchema, atualizaFornecedorSchema } = require('./schemas/fornecedores-schema');
 const router = Router();
 
 router.get('/',
@@ -13,7 +13,6 @@ router.get('/',
     if (req.user.perfil === PERFIL_CLIENTE.id) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
-
     const page = req.query.page || 1;
     const limit = req.query.limit || 10;
     const offset = (page - 1) * limit;
@@ -32,13 +31,13 @@ router.get('/',
     }
 
     try {
-      const resultado = await Cliente.findAll({
+      const resultado = await Fornecedor.findAll({
         where,
         limit,
         offset
       });
 
-      const count = await Cliente.count();
+      const count = await Fornecedor.count();
       const totalPages = Math.ceil(count / limit);
 
       return res.json({
@@ -69,12 +68,12 @@ router.get('/:id',
     }
 
     try {
-      const cliente = await Cliente.findOne({
+      const fornecedor = await Fornecedor.findOne({
         where: { id }
       });
 
       return res.json({
-        data: cliente
+        data: fornecedor
       });
     }
     catch(er) {
@@ -90,18 +89,18 @@ router.post('/',
     }
     const body = req.body;
 
-    const { error } = novoClienteSchema.validate(body);
+    const { error } = novoFornecedorSchema.validate(body);
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
 
-    const createClientePayload = {
+    const createFornecedorPayload = {
       id: v4(),
       ...body
     }
 
-    const createdCliente = await Cliente.create(createClientePayload);
-    return res.json(createdCliente);
+    const createdFornecedor = await Fornecedor.create(createFornecedorPayload);
+    return res.json(createdFornecedor);
 });
 
 router.put('/:id',
@@ -114,23 +113,23 @@ router.put('/:id',
     const id = req.params.id;
     const body = req.body;
 
-    const { error } = atualizaClienteSchema.validate(body);
+    const { error } = atualizaFornecedorSchema.validate(body);
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
 
-    await Cliente.update(body, {
+    await Fornecedor.update(body, {
       where: {
         id
       }
     });
 
-    const updatedCliente = {
+    const updatedFornecedor = {
       id,
       ...body
     }
 
-    return res.json(updatedCliente);
+    return res.json(updatedFornecedor);
 });
 
 module.exports = router;

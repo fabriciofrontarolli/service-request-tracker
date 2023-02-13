@@ -6,19 +6,27 @@ const dbUser = process.env.DB_USER;
 const dbHost = process.env.DB_HOST;
 const dbPassword = process.env.DB_PASSWORD;
 const dbPort = process.env.DB_PORT;
+const environment =  process.env.NODE_ENV;
+const isProduction = environment == "production";
 
-const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
+let sequelize = new Sequelize(dbName, dbUser, dbPassword, {
   host: dbHost,
   port: dbPort,
   dialect: 'postgres',
-  logging: true,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
+  logging: true
+});
+
+if (isProduction) {
+  sequelize = {
+    ...sequelize,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
     }
   }
-});
+}
 
 /* Models */
 // StatusOrdemServico
@@ -123,6 +131,27 @@ const OrdemServico = sequelize.define('OrdemServico', {
   underscored: true
 });
 
+// Fornecedor
+const Fornecedor = sequelize.define('Fornecedor', {
+  id: { type: DataTypes.UUID, allowNull: false, primaryKey: true },
+  codigo: { type: DataTypes.STRING },
+  cpf_cnpj: { type: DataTypes.STRING, allowNull: false },
+  inscricao_estadual: { type: DataTypes.STRING },
+  razao_social: { type: DataTypes.STRING },
+  nome_fantasia: { type: DataTypes.STRING },
+  cep: { type: DataTypes.STRING },
+  endereco: { type: DataTypes.STRING },
+  numero: { type: DataTypes.STRING },
+  complemento: { type: DataTypes.STRING },
+  bairro: { type: DataTypes.STRING },
+  cidade_estado: { type: DataTypes.STRING },
+  telefone: { type: DataTypes.STRING },
+  email: { type: DataTypes.STRING },
+  contato: { type: DataTypes.STRING },
+  observacao: { type: DataTypes.STRING },
+  created_at: { type: DataTypes.DATE },
+}, { sequelize, tableName: 'fornecedores', modelName: 'fornecedores', freezeTableName: true, timestamps: false });
+
 // Associations
 
 StatusOrdemServico.belongsTo(OrdemServico, {
@@ -165,5 +194,6 @@ module.exports = {
   Usuario,
   Cliente,
   Usuarios_Clientes,
-  OrdemServico
+  OrdemServico,
+  Fornecedor
 };

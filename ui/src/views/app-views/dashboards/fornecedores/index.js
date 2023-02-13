@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Input, notification, Pagination, Table, Tag } from 'antd';
+import { Button, Card, Input, notification, Pagination, Table } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import utils from 'utils';
-import ClienteService from "services/ClienteService";
+import FornecedorService from "services/FornecedorService";
 import Flex from "components/shared-components/Flex";
-
-const getCustomerType = isContract => {
-	if(isContract) {
-		return 'green';
-	}
-	return 'blue';
-}
 
 const tableColumns = [
 	{
@@ -28,21 +20,11 @@ const tableColumns = [
   {
 		title: 'Telefone',
 		dataIndex: 'telefone'
-	},
-  {
-		title: 'Contrato',
-		dataIndex: 'contrato',
-    render: (_, record) => (
-			<><Tag color={getCustomerType(record.contrato)}>{record.contrato ? "Sim" : "Nao"}</Tag></>
-		),
-		sorter: (a, b) => utils.antdTableSorter(a, b, 'contrato')
-	},
+	}
 ];
 
-// Aberto, Em atendimento, Fechado, Arquivado
-
-export const DefaultDashboard = () => {
-	const [clientes, setClientes] = useState([]);
+export const FornecedoresList = () => {
+	const [fornecedores, setFornecedores] = useState([]);
 	const [pagination, setPagination] = useState({
 		page: 1,
 		limit: 10,
@@ -56,29 +38,29 @@ export const DefaultDashboard = () => {
 
 	const navigate = useNavigate();
 
-	const handleBuscarClientes = async function(page=pagination.page, limit=pagination.limit) {
+	const handleBuscarFornecedores = async function(page=pagination.page, limit=pagination.limit) {
 		try {
 			const noNullFilters = Object.fromEntries(
 				Object.entries(filtro).filter(([key, value]) => !!value)
 			);
-			const resultado = await ClienteService.fetch(page, limit, noNullFilters);
+			const resultado = await FornecedorService.fetch(page, limit, noNullFilters);
 
-			setClientes(resultado.data);
+			setFornecedores(resultado.data);
 			setPagination(resultado.pagination);
 		}
 		catch(err) {
-			notification.error({ message: 'Erro ao buscar lista de clientes' })
+			notification.error({ message: 'Erro ao buscar lista de fornecedores' })
 		}
 	}
 
-	const handeFiltrarClientes = () => handleBuscarClientes();
+	const handeFiltrarFornecedores = () => handleBuscarFornecedores();
 
 	useEffect(() => {
-		handleBuscarClientes();
+		handleBuscarFornecedores();
 	}, []);
 
 	const onPageChange = (page, pageSize) => {
-		handleBuscarClientes(page, pageSize)
+		handleBuscarFornecedores(page, pageSize)
 	}
 
 	const handleChangeFilterField = (field, event) => {
@@ -91,7 +73,7 @@ export const DefaultDashboard = () => {
 
   return (
     <>
-      <Card title="Clientes">
+      <Card title="Fornecedores">
 				<Card >
 					<div style={{ display: 'flex', flexDirection: 'column' }}>
 						<Flex
@@ -136,25 +118,25 @@ export const DefaultDashboard = () => {
 							<Button
 								type="primary"
 								style={{ minWidth: '10rem', alignSelf: 'flex-end' }}
-								onClick={handeFiltrarClientes}
+								onClick={handeFiltrarFornecedores}
 							>
 								Buscar
 							</Button>
 						</Flex>
 					</div>
 				</Card>
-        <Link to={`/app/dashboards/novo-cliente`}>
-          <Button type="primary">Novo Cliente</Button>
+        <Link to={`/app/administrativo/novo-fornecedor`}>
+          <Button type="primary">Novo Fornecedor</Button>
         </Link>
         <Table
 					pagination={false}
           columns={tableColumns} 
-          dataSource={clientes} 
+          dataSource={fornecedores} 
           rowKey='ID'
 					style={{ cursor: 'pointer' }}
 					onRow={(record, rowIndex) => ({
 						onClick: (event) => {
-							navigate(`/app/dashboards/editar-cliente/${record.id}`);
+							navigate(`/app/administrativo/editar-fornecedor/${record.id}`);
 						}
 					})}
         />
@@ -174,4 +156,4 @@ export const DefaultDashboard = () => {
 }
 
 
-export default DefaultDashboard;
+export default FornecedoresList;

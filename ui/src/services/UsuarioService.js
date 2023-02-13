@@ -3,8 +3,19 @@ import { normalizePayload } from './utils';
 
 const UsuarioService = {}
 
-UsuarioService.fetch = function (page, limit) {
-	return fetch.get(`/usuarios?page=${page}&limit=${limit}`);
+UsuarioService.fetch = function (page, limit, filtro) {
+	let apiQuery = `?page=${page}&limit=${limit}`;
+
+	if (filtro) {
+		const updatedApiQuery = Object.entries(filtro)
+																	.reduce((query, [key,value]) => {
+																		const normalizedValue = encodeURIComponent(value.replace(/ /g, "%20"));
+																		return `${query}&${key}=${normalizedValue}`;
+																	}, apiQuery);
+		apiQuery = updatedApiQuery;
+	}
+
+	return fetch.get(`/usuarios${apiQuery}`);
 }
 
 UsuarioService.get = function (id) {

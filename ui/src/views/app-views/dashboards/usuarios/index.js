@@ -1,10 +1,11 @@
 import React, { Component, useEffect, useState } from 'react'
-import { Card, Table, Tag, Tooltip, message, Button, Pagination, notification } from 'antd';
+import { Card, Table, Tag, Tooltip, message, Button, Pagination, notification, Input } from 'antd';
 import { PoweroffOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import AvatarStatus from 'components/shared-components/AvatarStatus';
 import UsuarioService from "services/UsuarioService";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Flex from 'components/shared-components/Flex';
 
 export const UserList = () => {
 	const [users, setUsers] = useState([]);
@@ -13,11 +14,19 @@ export const UserList = () => {
 		limit: 10,
 		totalPages: 1
 	});
+	const [filtro, setFiltro] = useState({
+		nome: '',
+	});
+
+
 	const navigate = useNavigate();
 
 	const handleBuscarUsuarios = async function(page=pagination.page, limit=pagination.limit) {
 		try {
-			const resultado = await UsuarioService.fetch(page, limit);
+			const noNullFilters = Object.fromEntries(
+				Object.entries(filtro).filter(([key, value]) => !!value)
+			);
+			const resultado = await UsuarioService.fetch(page, limit, noNullFilters);
 
 			setUsers(resultado.data);
 			setPagination(resultado.pagination);
@@ -43,6 +52,20 @@ export const UserList = () => {
 	const onPageChange = (page, pageSize) => {
 		handleBuscarUsuarios(page, pageSize)
 	}
+
+	const handleChangeFilterField = (field, event) => {
+		const updatedFilter = {
+			...filtro,
+			[field]: event.target.value
+		};
+		setFiltro(updatedFilter);
+	}
+
+	const isToggleUserEnebled = (user) => {
+		return user.email != "administrador@sathi.com.br";
+	}
+
+	const handeFiltrarUsuarios = () => handleBuscarUsuarios();
 
 	const tableColumns = [
 		{
@@ -95,7 +118,10 @@ export const UserList = () => {
 			title: 'Ativar/Desativar',
 			dataIndex: 'actions',
 			render: (_, elm) => (
-				<div className="text-right d-flex justify-content">
+				<div
+					style={{ visibility: isToggleUserEnebled(elm) ? 'visible' : 'hidden' }}
+					className="text-right d-flex justify-content"
+				>
 					<Tooltip title={elm.is_ativo ? 'Desativar' : 'Ativar'}>
 						<Button
 							icon={
@@ -114,7 +140,42 @@ export const UserList = () => {
 	];
 
 	return (
-		<Card title="Usuarios" bodyStyle={{'padding': '0px'}}>
+		<Card title="Usuarios">
+			{ /* Filtros */ }
+			<Card >
+				<div style={{ display: 'flex', flexDirection: 'column' }}>
+					<Flex
+						flexDirection="row"
+						style={{
+							display: 'flex',
+							flexWrap: 'wrap',
+							marginBottom: '1rem',
+							justifyContent: "space-between"
+					}}
+					>
+						{ /* Nome */ }
+						<Flex flexDirection="column" style={{ marginBottom: '0.2rem' }}>
+							<label>Nome</label>
+							<Input
+								value={filtro.nome}
+								onChange={(ev) => handleChangeFilterField('nome', ev)}
+								style={{ width: '18rem', marginTop: '0.5rem', marginRight: '1rem' }}
+							/>
+						</Flex>
+						<Button
+							type="primary"
+							style={{ minWidth: '10rem', alignSelf: 'flex-end' }}
+							onClick={handeFiltrarUsuarios}
+						>
+							Buscar
+						</Button>
+					</Flex>
+				</div>
+			</Card>
+
+			<Link to={`/app/administrativo/novo-usuario`}>
+				<Button type="primary">Novo Usuario</Button>
+			</Link>
 			<div className="table-responsive">
 				<Table
 					columns={tableColumns}

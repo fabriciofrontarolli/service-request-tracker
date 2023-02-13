@@ -9,8 +9,8 @@ import {
   Tag
 } from 'antd';
 import ClienteService from 'services/ClienteService';
-import OrdensDeServiceService from 'services/OrdensDeServiceService';
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { LeftOutlined } from "@ant-design/icons";
 import { listaPerfil, PERFIL_ADMINISTRADOR, PERFIL_CLIENTE, PERFIL_TECNICO } from '../dados';
 import UsuarioService from 'services/UsuarioService';
 
@@ -282,9 +282,14 @@ const CriarNovoUsuario = () => {
 export class Register extends Component {
   render() {
     return (
-      <Card title="Novo Usuario">
-        <CriarNovoUsuario />
-      </Card>
+      <>
+        <Link to={`/app/administrativo/usuarios`} style={{ cursor: 'pointer' }}>
+          <LeftOutlined /> Retornar
+        </Link>
+        <Card title="Novo Usuario">
+          <CriarNovoUsuario />
+        </Card>
+      </>
     )
   }
 }

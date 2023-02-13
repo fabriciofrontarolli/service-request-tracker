@@ -5,6 +5,7 @@ const argon2 = require('argon2');
 const { Usuario, Usuarios_Clientes } = require('../entities');
 const { novoUsuarioSchema, atualizaUsuarioSchema } = require('./schemas/usuarios-schema');
 const { PERFIL_CLIENTE, PERFIL_TECNICO, PERFIL_ADMINISTRADOR } = require('../authentication/constants');
+const { Sequelize } = require('sequelize');
 
 const router = Router();
 
@@ -19,8 +20,16 @@ router.get('/',
     const limit = req.query.limit || 10;
     const offset = (page - 1) * limit;
 
+    /* filtros */
+    const { nome } = req.query;
+    const where = {};
+    if (nome) {
+      where.nome = { [Sequelize.Op.iLike]: `%${decodeURIComponent(nome)}%` };
+    }
+
     try {
       const resultado = await Usuario.findAll({
+        where,
         limit,
         offset,
         attributes: {

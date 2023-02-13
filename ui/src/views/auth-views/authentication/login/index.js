@@ -21,7 +21,7 @@ const Login = props => {
 						<Row justify="center">
 							<Col xs={24} sm={24} md={20} lg={12} xl={8}>
 								<h1>Entrar</h1>
-								<p>Nao possui uma conta? <a href="sathi@sathi.com.br">Entre em contato</a></p>
+								<p>Nao possui uma conta? <a href="mailto: sathi@sathi.com.br">Entre em contato</a></p>
 								<div className="mt-4">
 									<LoginForm {...props}/>
 								</div>

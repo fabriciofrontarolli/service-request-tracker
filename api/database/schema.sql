@@ -176,18 +176,29 @@ CREATE TABLE IF NOT EXISTS ordens_de_servico
     FOREIGN KEY (status_ordem_servico_id) REFERENCES status_ordem_servico (id)
 );
 
-
 -- Fornecedores
-/*
 CREATE TABLE IF NOT EXISTS fornecedores
 (
-	id 	 UUID 		NOT NULL,
-	cnpj VARCHAR 	NOT NULL,
-	
+	id									UUID					NOT NULL,
+	codigo							VARCHAR(5)		NULL,
+	cpf_cnpj						VARCHAR(18)		NOT NULL,
+	inscricao_estadual	VARCHAR(18)		NULL,
+	razao_social				VARCHAR(120)	NULL,
+	nome_fantasia				VARCHAR(120)	NULL,
+	cep									VARCHAR(9)		NULL,
+	endereco						VARCHAR(150)	NULL,
+	numero							VARCHAR(10)		NULL,
+	complemento					VARCHAR(50)		NULL,
+	bairro							VARCHAR(60)		NULL,
+	cidade_estado				VARCHAR(70)		NULL,
+	telefone						VARCHAR(60)		NULL,
+	email								VARCHAR(200)	NULL,
+	contato							VARCHAR(50)		NULL,
+	observacao					VARCHAR(100)	NULL,
+	created_at					TIMESTAMP WITH TIME ZONE DEFAULT current_timestamp,
+
 	PRIMARY KEY (id)
 );
-*/
-
 
 /*
 drop table status_ordem_servico cascade;
@@ -196,4 +207,5 @@ drop table ordens_de_servico cascade;
 drop table usuarios_clientes cascade;
 drop table usuarios cascade;
 drop table clientes cascade;
+drop table fornecedores cascade;
 */

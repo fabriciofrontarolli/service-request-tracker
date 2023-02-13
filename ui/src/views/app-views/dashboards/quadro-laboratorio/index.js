@@ -57,18 +57,17 @@ const getTechnicianServiceStatus = status => {
 
 export const QuandoLeboratorio = () => {
 	const [form] = Form.useForm();
-  const [data, setData] = useState();
 	const [tecnicos, setTecnicos] = useState([]);
   const [ordensDeServico, setOrdensDeServico] = useState([]);
 	const navigate = useNavigate();
 	const [editingKey, setEditingKey] = useState('');
-	const isEditing = (record) => record.key === editingKey;
+	const isEditing = (record) => record.rawOrdem.id === editingKey;
 
   const editarTecnico  = (record) => {
+    setEditingKey(record.rawOrdem.id);
     form.setFieldsValue({
       nome: record.nome,
     });
-    setEditingKey(record.key);
   };
   const cancelarTecnico = () => {
     setEditingKey('');
@@ -281,7 +280,7 @@ export const QuandoLeboratorio = () => {
 								style={{ marginRight: '0.7rem', border: 'none', background: '#B2B09B', color: '#fff' }}
 								onClick={(ev) => {
 									ev.stopPropagation();
-									navigate(`/app/dashboards/editar-ordem-de-servico/${record.rawOrdem.id}`);
+									navigate(`/app/dashboards/editar-ordem-de-servico/${record.rawOrdem.id}?previous=/app/quadros/laboratorio`);
 								}}
 							/>
 						</Flex>

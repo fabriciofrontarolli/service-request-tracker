@@ -3,17 +3,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   Form,
   Input,
-  Select,
-  Checkbox,
   Button,
   Card,
   notification,
 } from 'antd';
 import { LeftOutlined } from "@ant-design/icons";
-import ClienteService from 'services/ClienteService';
+import FornecedorService from 'services/FornecedorService';
 const { TextArea } = Input;
-
-const { Option } = Select;
 
 const formItemLayout = {
   labelCol: {
@@ -46,25 +42,24 @@ const tailFormItemLayout = {
   },
 };
 
-const NovoCliente = () => {
-  const [isContract, setIsContract] = useState(false);
-  const [userToUpdate, setUserToUpdate] = useState(undefined);
+const NovoFornecedor = () => {
+  const [fornecedorToUpdate, setFornecedorToUpdate] = useState(undefined);
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const params = useParams();
 
   useEffect(() => {
-    const getClienteToUpdate = async () => {
-      const usuarioId = params && params.id;
+    const getFornecedorToUpdate = async () => {
+      const fornecedorId = params && params.id;
 
       try {
-        if (!!usuarioId) {
-          const response = await ClienteService.get(usuarioId);
-          const usuario = response.data;
-          if (!!usuario) {
-            const allFields = Object.keys(usuario).map((field) => ({
+        if (!!fornecedorId) {
+          const response = await FornecedorService.get(fornecedorId);
+          const fornecedor = response.data;
+          if (!!fornecedor) {
+            const allFields = Object.keys(fornecedor).map((field) => ({
               name: field,
-              value: usuario[field]
+              value: fornecedor[field]
             }));
             // remove id, created_at
             const formFields = allFields.filter(field => (
@@ -73,32 +68,31 @@ const NovoCliente = () => {
             ))
 
             form.setFields(formFields);
-            setIsContract(usuario.contrato);
-            setUserToUpdate(usuario);
+            setFornecedorToUpdate(fornecedor);
           }
         }
       }
       catch(err) {
-        navigate('/app/dashboards/clientes');
-        notification.error(`Erro ao buscar o usuario! ${err}`);
+        navigate('/app/administrativo/fornecedores');
+        notification.error(`Erro ao buscar o fornecedor! ${err}`);
       }
     }
 
-    getClienteToUpdate();
+    getFornecedorToUpdate();
   }, []);
 
   const onFinish = async (values) => {
     try {
-      if (userToUpdate) {
-        await ClienteService.salvar(userToUpdate.id, values);
+      if (fornecedorToUpdate) {
+        await FornecedorService.salvar(fornecedorToUpdate.id, values);
       } else {
-        await ClienteService.criar(values);
+        await FornecedorService.criar(values);
       }
 
-      const successMessage = `Cliente ${userToUpdate ? 'atualizado' : 'criado'}`;
+      const successMessage = `Fornecedor ${fornecedorToUpdate ? 'atualizado' : 'criado'}`;
       notification.success({ message: successMessage });
 
-      navigate('/app/dashboards/clientes');
+      navigate('/app/administrativo/fornecedores');
     }
     catch (err) {
       notification.error({
@@ -119,22 +113,6 @@ const NovoCliente = () => {
       }}
       scrollToFirstError
     >
-      <Form.Item
-        name="contrato"
-        label={isContract ? "Contrato" : "Eventual"}
-      >
-        <Checkbox
-          checked={isContract}
-          value={isContract}
-          onChange={() => {
-            const updateIsContract = !isContract;
-            setIsContract(updateIsContract);
-            form.setFieldValue('contrato', updateIsContract);
-          }}
-          >
-        </Checkbox>
-      </Form.Item>
-
       <Form.Item
         name="codigo"
         label="Codigo"
@@ -359,11 +337,11 @@ export class Register extends Component {
   render() {
     return (
       <>
-        <Link to={`/app/dashboards/clientes`} style={{ cursor: 'pointer' }}>
+        <Link to={`/app/administrativo/fornecedores`} style={{ cursor: 'pointer' }}>
           <LeftOutlined /> Retornar
         </Link>
-        <Card title="Novo Cliente">
-          <NovoCliente />
+        <Card title="Novo Fornecedor">
+          <NovoFornecedor />
         </Card>
       </>
     )

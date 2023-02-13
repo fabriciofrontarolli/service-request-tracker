@@ -14,8 +14,12 @@ const opts = {
 passport.use(new JWTStrategy(opts, (jwt_payload, done) => {
   Usuario.findOne({ where: { id: jwt_payload.id } })
     .then(user => {
+      const requestUser = {
+        ...user,
+        cliente: jwt_payload.cliente
+      }
       if (user && user.is_ativo) {
-        return done(null, user);
+        return done(null, requestUser);
       }
       return done(null, false);
     })

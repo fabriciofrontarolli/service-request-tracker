@@ -2,15 +2,6 @@ import React from 'react'
 import { AUTH_PREFIX_PATH, APP_PREFIX_PATH } from 'configs/AppConfig'
 
 import LoginPage from 'views/auth-views/authentication/login';
-import OrdensDeServicoPage from 'views/app-views/dashboards/ordens-de-servico';
-import AbrirChamadoPage from 'views/app-views/dashboards/abrir-chamado';
-import ClientesPage from 'views/app-views/dashboards/clientes';
-import NovoClientePage from 'views/app-views/dashboards/novo-cliente';
-import QuadroLaboratorio from 'views/app-views/dashboards/quadro-laboratorio';
-import QuadroCampo from 'views/app-views/dashboards/quadro-campo';
-import UsuariosPage from 'views/app-views/dashboards/usuarios';
-import NovoUsaurioPage from 'views/app-views/dashboards/novo-usuario';
-import PerfilPage from 'views/app-views/dashboards/perfil';
 
 export const publicRoutes = [
     {
@@ -80,6 +71,21 @@ export const protectedRoutes = [
         key: 'dashboard.editarUsuario',
         path: `${APP_PREFIX_PATH}/administrativo/editar-usuario/:id`,
         component: React.lazy(() => import('views/app-views/dashboards/novo-usuario'))
+    },
+    {
+        key: 'administrativo.fornecedores.listagem',
+        path: `${APP_PREFIX_PATH}/administrativo/fornecedores`,
+        component: React.lazy(() => import('views/app-views/dashboards/fornecedores'))
+    },
+    {
+        key: 'administrativo.fornecedores.novoFornecedor',
+        path: `${APP_PREFIX_PATH}/administrativo/novo-fornecedor`,
+        component: React.lazy(() => import('views/app-views/dashboards/novo-fornecedor'))
+    },
+    {
+        key: 'administrativo.fornecedores.editarFornecedor',
+        path: `${APP_PREFIX_PATH}/administrativo/editar-fornecedor/:id`,
+        component: React.lazy(() => import('views/app-views/dashboards/novo-fornecedor'))
     },
     {
         key: 'dashboard.perfil',

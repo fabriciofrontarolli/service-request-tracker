@@ -10,41 +10,100 @@ const router = Router();
 router.get('/',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
-    if (req.user.perfil === PERFIL_CLIENTE.id) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-
+    const isPerfilCliente = req.user.perfil === PERFIL_CLIENTE.id;
     const page = req.query.page || 1;
     const limit = req.query.limit || 10;
     const offset = (page - 1) * limit;
+    const userId = isPerfilCliente ? req.user.id : undefined;
+    const clienteId = req.user.cliente;
+
+    const {
+      os,
+      tipo,
+      status,
+      cliente,
+      data_inicio,
+      data_fim
+    } = req.query;
+
+    let whereClause = '';
+
+    if (clienteId) {
+      whereClause += "AND (CLI.id IS NULL OR CLI.id::text = :user) ";
+    }
+    if (os) {
+      whereClause += "AND (OS.numero IS NULL OR OS.numero ILIKE :os) ";
+    }
+    if (tipo) {
+      whereClause += "AND (TOS.id IS NULL OR TOS.id::text = :tipo) ";
+    }
+    if (status) {
+      whereClause += "AND (SOS.id IS NULL OR SOS.id::text = :status) ";
+    }
+    if (cliente) {
+      whereClause += "AND (CLI.nome_fantasia IS NULL OR CLI.nome_fantasia ILIKE :cliente) ";
+    }
+    if (data_inicio) {
+      whereClause += "AND (OS.created_at IS NULL OR OS.created_at >= :data_inicio) ";
+    }
+    if (data_fim) {
+      whereClause += "AND (OS.created_at IS NULL OR OS.created_at <= :data_fim) ";
+    }
+
+    const baseSqlCommand = `
+      FROM
+        ordens_de_servico as OS
+      LEFT JOIN
+        status_ordem_servico as SOS ON OS.status_ordem_servico_id = SOS.id
+      LEFT JOIN
+        tipo_ordem_servico as TOS ON OS.tipo_ordem_servico_id = TOS.id
+      LEFT JOIN
+        clientes as CLI ON OS.cliente_id = CLI.id
+      LEFT JOIN
+        usuarios as USU ON OS.usuario_id = USU.id
+      WHERE
+        TRUE
+      ${whereClause}
+    `;
+
+    const dataSqlCommand = `
+      SELECT
+        OS.*,
+        SOS.description as "status_ordem_servico",
+        TOS.description as "tipo_ordem_servico",
+        CLI.nome_fantasia,
+        USU.nome
+      ${baseSqlCommand}
+      ORDER BY OS.created_at DESC
+      LIMIT ${limit} OFFSET ${offset};
+    `;
+    const dataCountSqlCommand = `
+      SELECT COUNT(OS.id)
+      ${baseSqlCommand}
+    `;
+
+    const queryParameters = {
+      replacements: {
+        user: `${clienteId || ""}`,
+        os: `%${os || ""}%`,
+        tipo: `${tipo || ""}`,
+        status: `${status || ""}`,
+        cliente: `%${cliente || ""}%`,
+        data_inicio: `${data_inicio || ""}`,
+        data_fim: `${data_fim || ""}`,
+      },
+      type: sequelize.QueryTypes.SELECT,
+    };
 
     try {
-      const ordensDeServico = await sequelize.query(`
-        SELECT
-          OS.*,
-          SOS.description as "status_ordem_servico",
-          TOS.description as "tipo_ordem_servico",
-          CLI.nome_fantasia,
-          USU.nome
-        FROM
-          ordens_de_servico as OS
-        LEFT JOIN
-          status_ordem_servico as SOS ON OS.status_ordem_servico_id = SOS.id
-        LEFT JOIN
-          tipo_ordem_servico as TOS ON OS.tipo_ordem_servico_id = TOS.id
-        LEFT JOIN
-          clientes as CLI ON OS.cliente_id = CLI.id
-        LEFT JOIN
-          usuarios as USU ON OS.usuario_id = USU.id
-        ORDER BY OS.created_at DESC
-        LIMIT ${limit} OFFSET ${offset};
-      `);
+      const ordensDeServico = await sequelize.query(dataSqlCommand, queryParameters);
+      const countResult = await sequelize.query(dataCountSqlCommand, queryParameters);
 
-      const count = await OrdemServico.count();
+      const count = countResult[0].count
       const totalPages = Math.ceil(count / limit);
 
       return res.json({
-        data: ordensDeServico[0],
+        data: ordensDeServico,
         pagination: {
           page,
           limit,
@@ -231,10 +290,6 @@ router.post('/',
 router.put('/:id',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
-    if (req.user.perfil === PERFIL_CLIENTE.id) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-
     const id = req.params.id;
     const body = req.body;
 
