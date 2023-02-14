@@ -33,7 +33,6 @@ ClienteService.criar = function (data) {
 }
 
 ClienteService.salvar = function (id, data) {
-	normalizePayload(data);
 	return fetch({
 		url: `/clientes/${id}`,
 		method: 'put',

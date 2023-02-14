@@ -16,6 +16,7 @@ import { ABERTO, EM_ANDAMENTO, FECHADO } from '../dados';
 import EditablTecnico from "./editable-tenico";
 import UsuarioService from "services/UsuarioService";
 import TecnicosContext from "./tecnicos-context";
+const REFRESH_RATE_MILLISECONDS = 120000;
 
 const getServiceStatus = status => {
 	if(status === 'Triagem') {
@@ -154,6 +155,14 @@ export const QuadroCampo = () => {
 	useEffect(() => {
 		handleBuscarOrdensDeServico();
 		handleBuscarTecnicos();
+
+		const refreshInterval = setInterval(() => {
+			handleBuscarOrdensDeServico();
+		}, REFRESH_RATE_MILLISECONDS);
+
+		return () => {
+			clearInterval(refreshInterval)
+		}
 	}, []);
 
 	const tableColumns = [

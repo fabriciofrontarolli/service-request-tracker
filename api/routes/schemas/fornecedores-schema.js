@@ -1,47 +1,52 @@
 const Joi = require('joi');
 
 const novoFornecedorSchema = Joi.object({
-  codigo: Joi.string()
-      .max(5),
-  
-  cpf_cnpj: Joi.string()
-      .min(11)
-      .max(18)
-      .required(),
-  
-  inscricao_estadual: Joi.string()
-      .min(9)
-      .max(18),
+    codigo: Joi.string()
+    .max(5),
 
-  razao_social: Joi.string().max(120),
-  
-  nome_fantasia: Joi.string().max(120),
-  
-  cep: Joi.string().pattern(new RegExp('[0-9]{5}-[0-9]{3}')),
+    cpf_cnpj: Joi.string()
+        .min(11)
+        .max(18)
+        .required(),
 
-  endereco: Joi.string().max(150),
+    inscricao_estadual: Joi.string()
+        .min(9)
+        .max(18)
+        .optional()
+        .allow(null, ''),
 
-  numero: Joi.string().max(10),
+    razao_social: Joi.string().max(120).optional().allow(null, ''),
 
-  complemento: Joi.string().max(50),
+    nome_fantasia: Joi.string().max(120).optional().allow(null, ''),
 
-  bairro: Joi.string().max(60),
+    cep: Joi.string().pattern(new RegExp('[0-9]{5}-[0-9]{3}')).optional().allow(null, ''),
 
-  cidade_estado: Joi.string().max(70),
+    endereco: Joi.string().max(150).optional().allow(null, ''),
 
-  telefone: Joi.string().max(60),
-  
-  email: Joi.string()
-      .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'br'] } }),
-  
-  contato: Joi.string().max(50),
+    numero: Joi.string().max(10).optional().allow(null, ''),
 
-  observacao: Joi.string().max(100),
+    complemento: Joi.string().max(50).optional().allow(null, ''),
+
+    bairro: Joi.string().max(60).optional().allow(null, ''),
+
+    cidade_estado: Joi.string().max(70).optional().allow(null, ''),
+
+    telefone: Joi.string().max(60).optional().allow(null, ''),
+
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'br'] } })
+        .optional().allow(null, ''),
+
+    contato: Joi.string().max(50).optional().allow(null, ''),
+
+    observacao: Joi.string().max(100).optional().allow(null, '')
 });
 
 const atualizaFornecedorSchema = Joi.object({
     codigo: Joi.string()
-        .max(5),
+        .max(5)
+        .optional()
+        .allow(null, ''),
     
     cpf_cnpj: Joi.string()
         .min(11)
@@ -50,32 +55,34 @@ const atualizaFornecedorSchema = Joi.object({
     
     inscricao_estadual: Joi.string()
         .min(9)
-        .max(18),
+        .max(18)
+        .optional()
+        .allow(null, ''),
   
-    razao_social: Joi.string().max(120),
+    razao_social: Joi.string().max(120).optional().allow(null, ''),
     
-    nome_fantasia: Joi.string().max(120),
+    nome_fantasia: Joi.string().max(120).optional().allow(null, ''),
     
-    cep: Joi.string().pattern(new RegExp('[0-9]{5}-[0-9]{3}')),
+    cep: Joi.string().pattern(new RegExp('[0-9]{5}-[0-9]{3}')).optional().allow(null, ''),
   
-    endereco: Joi.string().max(150),
+    endereco: Joi.string().max(150).optional().allow(null, ''),
   
-    numero: Joi.string().max(10),
+    numero: Joi.string().max(10).optional().allow(null, ''),
   
-    complemento: Joi.string().max(50),
+    complemento: Joi.string().max(50).optional().allow(null, ''),
   
-    bairro: Joi.string().max(60),
+    bairro: Joi.string().max(60).optional().allow(null, ''),
   
-    cidade_estado: Joi.string().max(70),
+    cidade_estado: Joi.string().max(70).optional().allow(null, ''),
   
-    telefone: Joi.string().max(60),
+    telefone: Joi.string().max(60).optional().allow(null, ''),
     
     email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'br'] } }),
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'br'] } }).optional().allow(null, ''),
     
-    contato: Joi.string().max(50),
+    contato: Joi.string().max(50).optional().allow(null, ''),
   
-    observacao: Joi.string().max(100),
+    observacao: Joi.string().max(100).optional().allow(null, '')
   });
 
 /*

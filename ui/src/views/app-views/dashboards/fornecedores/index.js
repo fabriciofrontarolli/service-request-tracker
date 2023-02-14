@@ -7,6 +7,11 @@ import Flex from "components/shared-components/Flex";
 const tableColumns = [
 	{
 		title: 'ID',
+		dataIndex: 'id',
+		width: '25rem'
+	},
+	{
+		title: 'Codigo',
 		dataIndex: 'codigo',
 	},
   {

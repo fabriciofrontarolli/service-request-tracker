@@ -7,68 +7,86 @@ const novaOrdemServicoSchema = Joi.object({
     .required(),
 
   usuario_id: Joi.string()
-    .min(36)
-    .max(36),
+    .min(0)
+    .max(36)
+    .optional()
+    .allow(null, ''),
 
   status_ordem_servico_id: Joi.string()
-    .min(36)
-    .max(36),
+    .min(0)
+    .max(36)
+    .optional()
+    .allow(null, ''),
   
   tipo_ordem_servico_id: Joi.string()
-    .min(36)
-    .max(36),
+    .min(0)
+    .max(36)
+    .optional()
+    .allow(null, ''),
 
-  numero: Joi.string().max(8),
+  numero: Joi.string().max(8).optional().allow(null, ''),
   
-  solicitante: Joi.string().max(100),
+  solicitante: Joi.string().max(100).optional().allow(null, ''),
 
-  descricao: Joi.string().max(500),
+  descricao: Joi.string().max(500).optional().allow(null, ''),
 
-  solucao: Joi.string().max(500),
+  solucao: Joi.string().max(500).optional().allow(null, ''),
 
-  observacao: Joi.string().max(500),
+  observacao: Joi.string().max(500).optional().allow(null, ''),
 
-  consumo: Joi.string().max(500),
+  consumo: Joi.string().max(500).optional().allow(null, ''),
 
-  assinatura: Joi.string(),
+  assinatura: Joi.string().optional().allow(null, ''),
 
-  data_inicio_atendimento: Joi.string(),
+  data_inicio_atendimento: Joi.string().optional().allow(null, ''),
 
-  data_fim_atendimento: Joi.string(),
+  data_fim_atendimento: Joi.string().optional().allow(null, ''),
 });
 
 const atualizaOrdemServicoSchema = Joi.object({  
   cliente_id: Joi.string()
-    .min(36)
-    .max(36),
+    .min(0)
+    .max(36)
+    .optional()
+    .allow(null, ''),
 
   usuario_id: Joi.string()
-    .min(36)
-    .max(36),
+    .min(0)
+    .max(36)
+    .optional()
+    .allow(null, ''),
 
   status_ordem_servico_id: Joi.string()
-    .min(36)
-    .max(36),
-  
+    .min(0)
+    .max(36)
+    .optional()
+    .allow(null, '')
+    .optional()
+    .allow(null, ''),
+
   tipo_ordem_servico_id: Joi.string()
-    .min(36)
-    .max(36),
-  
-  solicitante: Joi.string().max(100),
+    .min(0)
+    .max(36)
+    .optional()
+    .allow(null, '')
+    .optional()
+    .allow(null, ''),
 
-  descricao: Joi.string().max(500),
+  solicitante: Joi.string().max(100).optional().allow(null, ''),
 
-  solucao: Joi.string().max(500),
+  descricao: Joi.string().max(500).optional().allow(null, ''),
 
-  observacao: Joi.string().max(500),
+  solucao: Joi.string().max(500).optional().allow(null, ''),
 
-  consumo: Joi.string().max(500),
+  observacao: Joi.string().max(500).optional().allow(null, ''),
 
-  assinatura: Joi.string(),
+  consumo: Joi.string().max(500).optional().allow(null, ''),
 
-  data_inicio_atendimento: Joi.string(),
+  assinatura: Joi.string().optional().allow(null, ''),
 
-  data_fim_atendimento: Joi.string()
+  data_inicio_atendimento: Joi.string().optional().allow(null, ''),
+
+  data_fim_atendimento: Joi.string().optional().allow(null, '')
 });
 
 /*

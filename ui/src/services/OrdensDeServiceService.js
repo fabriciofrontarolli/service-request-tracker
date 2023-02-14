@@ -41,7 +41,6 @@ OrdensDeServicoService.criar = function (data) {
 }
 
 OrdensDeServicoService.salvar = function (id, data) {
-	normalizePayload(data);
 	return fetch({
 		url: `/ordens-de-servico/${id}`,
 		method: 'put',

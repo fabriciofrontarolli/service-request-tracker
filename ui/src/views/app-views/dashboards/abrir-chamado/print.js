@@ -28,7 +28,7 @@ export const ImprimirOrdemDeServico = (props) => {
 							<address>
 								<p>
 									<span className="font-weight-semibold text-dark font-size-md">Sathi Informatica</span><br />
-									<span>00.439.616.0001-63</span><br />
+									<span>00.439.616/0001-63</span><br />
 									<span>Rua Frei Manoel da Ressureicao, 339</span><br />
 									<span>Guanabara</span><br />
 									<span>Campinas/SP</span><br />

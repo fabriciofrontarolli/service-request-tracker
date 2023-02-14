@@ -210,11 +210,6 @@ router.put('/:id/desativar',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     const id = req.params.id;
-
-    if (req.user.perfil !== PERFIL_ADMINISTRADOR.id) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-
     await Usuario.update({ is_ativo: false }, {
       where: { id }
     });
@@ -226,11 +221,6 @@ router.put('/:id/ativar',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     const id = req.params.id;
-
-    if (req.user.perfil !== PERFIL_ADMINISTRADOR.id) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-
     await Usuario.update({ is_ativo: true }, {
       where: { id }
     });

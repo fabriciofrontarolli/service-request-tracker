@@ -33,7 +33,6 @@ FornecedorService.criar = function (data) {
 }
 
 FornecedorService.salvar = function (id, data) {
-	normalizePayload(data);
 	return fetch({
 		url: `/fornecedores/${id}`,
 		method: 'put',

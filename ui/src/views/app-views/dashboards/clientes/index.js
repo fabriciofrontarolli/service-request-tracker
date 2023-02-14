@@ -15,6 +15,11 @@ const getCustomerType = isContract => {
 const tableColumns = [
 	{
 		title: 'ID',
+		dataIndex: 'id',
+		width: '25rem'
+	},
+	{
+		title: 'Codigo',
 		dataIndex: 'codigo',
 	},
   {

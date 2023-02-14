@@ -9,8 +9,6 @@ const dbPort = process.env.DB_PORT;
 const environment =  process.env.NODE_ENV;
 const isProduction = environment == "production";
 
-console.log('environment >>>>>>>>>>> ', environment)
-
 let sequelize;
 
 if (!isProduction) {
