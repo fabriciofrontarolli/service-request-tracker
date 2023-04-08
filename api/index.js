@@ -30,5 +30,6 @@ configureRoutes(app);
 
 const PORT = process.env.API_PORT;
 app.listen(PORT, () => {
-  console.log('server running on port: ', PORT)
+  console.log('server running on port: ', PORT || 8090)
+	console.log('ENVIRONMENT VARIABLES: ', process.env)
 });
