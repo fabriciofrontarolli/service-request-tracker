@@ -1,6 +1,31 @@
+# Requirements
+
+Node Version: >18.15.0
+# Development
+
+cd /api
+- npm install
+
+cd /ui
+- npm install
 
 
-# Deploy
+# Running the project locally
+
+## Start the Postgres Database
+docker-compose -f docker-compose.development.yml up
+
+## Start the API
+cd /api
+- npm run dev
+
+## Start the UI
+cd /ui
+- npm run dev
+
+
+
+# Production Deploy
 
 ## Build UI
 

@@ -45,7 +45,14 @@ const EditableCell = ({
               },
             ]}
           >
-            <Select value={""} allowClear={true} onChange={() => {handleFinish() }} showSearch={true} optionFilterProp="children">
+            <Select
+              value={""}
+              allowClear={true}
+              onChange={() => {handleFinish() }}
+              showSearch={true}
+              optionFilterProp="children"
+              style={{ width: '120px' }}
+            >
               {
                 tecnicos.map(tecnico => (
                   <Option key={tecnico.value} value={tecnico.value}>{ tecnico.label }</Option>

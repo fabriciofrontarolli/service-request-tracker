@@ -216,6 +216,7 @@ export const QuandoLeboratorio = () => {
 		},
 		{
 			title: 'Tecnico',
+			width: '150px',
 			dataIndex: 'nome',
 			editable: true
 		},

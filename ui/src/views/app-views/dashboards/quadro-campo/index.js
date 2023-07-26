@@ -218,6 +218,7 @@ export const QuadroCampo = () => {
 		{
 			title: 'Tecnico',
 			dataIndex: 'nome',
+			width: '150px',
 			editable: true
 		},
 		{
